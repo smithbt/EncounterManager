@@ -31,10 +31,13 @@
     <ClCompile Include="EncounterManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Combatant.cpp">
+    <ClCompile Include="AddCombatantDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AddCombatantDialog.cpp">
+    <ClCompile Include="CombatantWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CombatantModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -45,6 +48,12 @@
     <QtMoc Include="AddCombatantDialog.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="CombatantWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="CombatantModel.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="EncounterManager.ui">
@@ -53,15 +62,13 @@
     <QtUic Include="AddCombatantDialog.ui">
       <Filter>Form Files</Filter>
     </QtUic>
+    <QtUic Include="CombatantWidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="EncounterManager.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Combatant.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

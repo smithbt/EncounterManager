@@ -10,18 +10,27 @@ AddCombatantDialog::~AddCombatantDialog()
 {
 }
 
-Combatant *AddCombatantDialog::createCombatant()
+QString AddCombatantDialog::name() const
 {
-	QString player = ui.playerEdit->text();
-	bool isPlayer = !player.isEmpty();
-	QString name = ui.nameEdit->text();
-	int initBonus = ui.initEdit->value();
-	int hp = ui.hpEdit->value();
+	return ui.nameEdit->text();
+}
 
-	if (!name.isEmpty()) {
-		Combatant* cmbtnt = new Combatant(name,isPlayer);
-		return cmbtnt;
-	}
-	else return nullptr;
-	
+int AddCombatantDialog::initBonus() const
+{
+	return ui.initEdit->value();
+}
+
+int AddCombatantDialog::maxHP() const
+{
+	return ui.hpEdit->value();
+}
+
+bool AddCombatantDialog::isPlayer() const
+{
+	return ui.yesButton->isChecked();
+}
+
+QString AddCombatantDialog::player() const
+{
+	return ui.pcNameEdit->text();
 }

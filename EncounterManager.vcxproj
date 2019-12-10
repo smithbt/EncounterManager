@@ -90,7 +90,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AddCombatantDialog.cpp" />
-    <ClCompile Include="Combatant.cpp" />
+    <ClCompile Include="CombatantModel.cpp" />
+    <ClCompile Include="CombatantWidget.cpp" />
     <ClCompile Include="EncounterManager.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -99,14 +100,16 @@
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="AddCombatantDialog.ui" />
+    <QtUic Include="CombatantWidget.ui" />
     <QtUic Include="EncounterManager.ui" />
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="EncounterManager.qrc" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="CombatantWidget.h" />
+    <QtMoc Include="CombatantModel.h" />
     <QtMoc Include="AddCombatantDialog.h" />
-    <ClInclude Include="Combatant.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

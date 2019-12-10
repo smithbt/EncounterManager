@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>373</width>
-    <height>264</height>
+    <width>372</width>
+    <height>344</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,86 +16,139 @@
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>20</x>
+     <x>10</x>
      <y>10</y>
-     <width>341</width>
-     <height>237</height>
+     <width>351</width>
+     <height>321</height>
     </rect>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <item>
-     <layout class="QFormLayout" name="formLayout">
-      <item row="1" column="0">
-       <widget class="QCheckBox" name="isPlayerCheckBox">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="layoutDirection">
-         <enum>Qt::LeftToRight</enum>
-        </property>
+   <layout class="QFormLayout" name="formLayout">
+    <item row="0" column="0">
+     <widget class="QLabel" name="NameLabel">
+      <property name="text">
+       <string>Combatant Name</string>
+      </property>
+      <property name="buddy">
+       <cstring>nameEdit</cstring>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="nameEdit"/>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="InitativeLabel">
+      <property name="text">
+       <string>Initiative Bonus</string>
+      </property>
+      <property name="buddy">
+       <cstring>initEdit</cstring>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QSpinBox" name="initEdit"/>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="hpLabel">
+      <property name="text">
+       <string>Hit Points</string>
+      </property>
+      <property name="buddy">
+       <cstring>hpEdit</cstring>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QSpinBox" name="hpEdit"/>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLabel" name="otherInfoLabel">
+      <property name="text">
+       <string>Other Information</string>
+      </property>
+      <property name="buddy">
+       <cstring>otherInfoEdit</cstring>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1">
+     <widget class="QTextEdit" name="otherInfoEdit">
+      <property name="tabChangesFocus">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="1">
+     <widget class="QDialogButtonBox" name="buttonBox">
+      <property name="standardButtons">
+       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="isPCLabel">
+      <property name="text">
+       <string>Player Character?</string>
+      </property>
+      <property name="buddy">
+       <cstring>yesButton</cstring>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLineEdit" name="pcNameEdit">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="pcNameLabel">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="text">
+       <string>Player Name</string>
+      </property>
+      <property name="buddy">
+       <cstring>pcNameEdit</cstring>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QRadioButton" name="yesButton">
         <property name="text">
-         <string>Player Name</string>
+         <string>Yes</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="noButton">
+        <property name="text">
+         <string>No</string>
         </property>
         <property name="checked">
          <bool>true</bool>
         </property>
        </widget>
       </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="NameLabel">
-        <property name="text">
-         <string>Combatant Name</string>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
         </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QLineEdit" name="nameEdit"/>
-      </item>
-      <item row="3" column="1">
-       <widget class="QSpinBox" name="initEdit"/>
-      </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="InitativeLabel">
-        <property name="text">
-         <string>Initiative Bonus</string>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
         </property>
-       </widget>
-      </item>
-      <item row="4" column="0">
-       <widget class="QLabel" name="hpLabel">
-        <property name="text">
-         <string>Hit Points</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="1">
-       <widget class="QSpinBox" name="hpEdit"/>
-      </item>
-      <item row="5" column="0">
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>Other Information</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="1">
-       <widget class="QTextEdit" name="otherInfoEdit"/>
-      </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="playerEdit">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-       </widget>
+       </spacer>
       </item>
      </layout>
-    </item>
-    <item>
-     <widget class="QDialogButtonBox" name="buttonBox">
-      <property name="standardButtons">
-       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-      </property>
-     </widget>
     </item>
    </layout>
   </widget>
@@ -110,8 +163,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>241</x>
-     <y>232</y>
+     <x>335</x>
+     <y>329</y>
     </hint>
     <hint type="destinationlabel">
      <x>238</x>
@@ -126,8 +179,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>326</x>
-     <y>237</y>
+     <x>359</x>
+     <y>329</y>
     </hint>
     <hint type="destinationlabel">
      <x>324</x>
@@ -136,34 +189,50 @@
    </hints>
   </connection>
   <connection>
-   <sender>isPlayerCheckBox</sender>
+   <sender>yesButton</sender>
    <signal>toggled(bool)</signal>
-   <receiver>playerEdit</receiver>
+   <receiver>pcNameLabel</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>48</x>
-     <y>33</y>
+     <x>111</x>
+     <y>47</y>
     </hint>
     <hint type="destinationlabel">
-     <x>287</x>
-     <y>33</y>
+     <x>58</x>
+     <y>74</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>isPlayerCheckBox</sender>
+   <sender>yesButton</sender>
    <signal>toggled(bool)</signal>
-   <receiver>playerEdit</receiver>
+   <receiver>pcNameEdit</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>137</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>140</x>
+     <y>67</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>yesButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>pcNameEdit</receiver>
    <slot>clear()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>92</x>
-     <y>19</y>
+     <x>144</x>
+     <y>55</y>
     </hint>
     <hint type="destinationlabel">
-     <x>145</x>
-     <y>25</y>
+     <x>190</x>
+     <y>69</y>
     </hint>
    </hints>
   </connection>

@@ -30,5 +30,6 @@ public:
 	int getInitBonus();
 	int getMaxHP();
 	QString getOtherInfo();
+	bool isEmpty();
 };
 

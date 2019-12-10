@@ -2,7 +2,7 @@
 
 #include <QDialog>
 #include "ui_AddCombatantDialog.h"
-#include "Combatant.h"
+#include "CombatantModel.h"
 
 class AddCombatantDialog : public QDialog
 {
@@ -12,7 +12,11 @@ public:
 	AddCombatantDialog(QWidget *parent = Q_NULLPTR);
 	~AddCombatantDialog();
 
-	Combatant *createCombatant();
+	QString name() const;
+	int initBonus() const;
+	int maxHP() const;
+	bool isPlayer() const;
+	QString player() const;
 
 private:
 	Ui::AddCombatantDialog ui;

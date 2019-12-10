@@ -2,12 +2,11 @@
 
 Combatant::Combatant()
 {
-}
-
-Combatant::Combatant(QString name, bool pc)
-{
-	this->name = name;
-	this->isPlayer = pc;
+	name = "";
+	initBonus = 0;
+	maxHP = 0;
+	isPlayer = false;
+	player = "";
 }
 
 Combatant::~Combatant()

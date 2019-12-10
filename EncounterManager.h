@@ -1,10 +1,10 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
-#include <QListWidgetItem>
+#include <QSortFilterProxyModel>
 #include "ui_EncounterManager.h"
 #include "AddCombatantDialog.h"
-#include "ui_AddCombatantDialog.h"
+#include "CombatantModel.h"
 
 class EncounterManager : public QMainWindow
 {
@@ -15,9 +15,12 @@ public:
 
 private:
 	Ui::EncounterManagerClass ui;
+	CombatantModel* cmbtntModel;
+	QSortFilterProxyModel* proxyModel;
 
 private slots:
 	void on_addCombatantButton_clicked();
-	void on_combatantList_currentItemChanged();
+	void addEntry(QString &name, int initBonus, int maxHP, bool isPlayer, QString &player);
+	void on_combatantTableView_selectionChanged();
 	void on_removeButton_clicked();
 };
