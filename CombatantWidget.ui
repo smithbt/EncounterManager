@@ -6,26 +6,57 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>357</height>
+    <width>295</width>
+    <height>373</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>CombatantWidget</string>
   </property>
-  <widget class="QGroupBox" name="currentCombatant">
+  <widget class="QWidget" name="">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>276</width>
-     <height>339</height>
+     <x>20</x>
+     <y>30</y>
+     <width>267</width>
+     <height>301</height>
     </rect>
    </property>
-   <property name="title">
-    <string>&lt;no combatant selected&gt;</string>
-   </property>
    <layout class="QGridLayout" name="gridLayout">
+    <item row="3" column="0">
+     <widget class="QSpinBox" name="curHPSpinBox"/>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="curHPLabel">
+      <property name="text">
+       <string>Current Hit Points:</string>
+      </property>
+      <property name="buddy">
+       <cstring>curHPSpinBox</cstring>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="nameLabel">
+      <property name="text">
+       <string>Name</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="Line" name="playerLine">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="2">
+     <widget class="QLabel" name="playerLabel">
+      <property name="text">
+       <string>Player</string>
+      </property>
+     </widget>
+    </item>
     <item row="0" column="3">
      <widget class="QToolButton" name="editButton">
       <property name="text">
@@ -33,37 +64,61 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="1">
-     <widget class="QSpinBox" name="curHPSpinBox"/>
+    <item row="7" column="0" colspan="4">
+     <widget class="QTextEdit" name="notesEdit"/>
     </item>
-    <item row="0" column="2">
-     <widget class="QLabel" name="maxHPLabel">
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="0">
+    <item row="6" column="0" colspan="4">
      <widget class="QLabel" name="notesLabel">
       <property name="text">
        <string>Notes:</string>
       </property>
-     </widget>
-    </item>
-    <item row="5" column="0" colspan="4">
-     <widget class="QTextEdit" name="notesEdit"/>
-    </item>
-    <item row="0" column="0">
-     <widget class="QLabel" name="hpLabel">
-      <property name="text">
-       <string>Hit Points</string>
+      <property name="buddy">
+       <cstring>notesEdit</cstring>
       </property>
      </widget>
     </item>
-    <item row="3" column="0" colspan="4">
+    <item row="5" column="0" colspan="4">
      <widget class="QLabel" name="otherInfo">
       <property name="text">
        <string>&lt;no info available&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0" colspan="4">
+     <widget class="Line" name="hpLine">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0" colspan="4">
+     <widget class="Line" name="titleLine">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="2" colspan="2">
+     <widget class="QLabel" name="maxHPLabel">
+      <property name="text">
+       <string>Maximum Hit Points:</string>
+      </property>
+      <property name="buddy">
+       <cstring>maxHPEdit</cstring>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="2" colspan="2">
+     <widget class="QLineEdit" name="maxHPEdit">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1" rowspan="2">
+     <widget class="Line" name="hpSeparatorLine">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
       </property>
      </widget>
     </item>

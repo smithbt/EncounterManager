@@ -16,7 +16,7 @@ int CombatantModel::rowCount(const QModelIndex& parent) const
 
 int CombatantModel::columnCount(const QModelIndex& parent) const
 {
-	return parent.isValid() ? 0 : 5; //Only 5 columns: name, init, hp, isPlayer, playerName
+	return parent.isValid() ? 0 : 6; //Columns: name, initRoll, initBonus, maxHP, isPlayer, playerName
 }
 
 QVariant CombatantModel::data(const QModelIndex& index, int role) const
@@ -27,16 +27,45 @@ QVariant CombatantModel::data(const QModelIndex& index, int role) const
 	if (index.row() >= combatants.size() || index.row() < 0)
 		return QVariant();
 
-	if (role == Qt::DisplayRole)
-	{
-		const auto &cbt = combatants.at(index.row());
+	if (role == Qt::DisplayRole || role == Qt::EditRole) {
+		const auto& cbt = combatants.at(index.row());
 		switch (index.column()) {
-		case 0: return cbt.name;
-		case 1: return cbt.initBonus;
-		case 2: return cbt.maxHP; 
-		case 3: return cbt.isPlayer;
-		case 4: return cbt.player;
+		case NAME: return cbt.name;
+		case INITIATIVE_ROLL: return cbt.initRoll;
+		case INITIATIVE_BONUS: return cbt.initBonus;
+		case MAX_HP: return cbt.maxHP;
+		case IS_PLAYER: return cbt.isPlayer;
+		case PLAYER_NAME: return cbt.player;
 		default: break;
+		}
+	}
+	else if (role == Qt::BackgroundColorRole) {
+
+	}
+	return QVariant();
+}
+
+QVariant CombatantModel::headerData(int section, Qt::Orientation orientation, int role) const
+{
+	if (role != Qt::DisplayRole)
+		return QVariant();
+
+	if (orientation == Qt::Horizontal) {
+		switch (section) {
+		case NAME:
+			return tr("Name");
+		case INITIATIVE_ROLL:
+			return tr("Initiative Roll");
+		case INITIATIVE_BONUS:
+			return tr("Initiative Bonus");
+		case MAX_HP:
+			return tr("Max HP");
+		case IS_PLAYER:
+			return tr("PC?");
+		case PLAYER_NAME:
+			return tr("Player");
+		default:
+			break;
 		}
 	}
 	return QVariant();
@@ -49,20 +78,23 @@ bool CombatantModel::setData(const QModelIndex& index, const QVariant &val, int 
 		auto cmbtnt = combatants.at(row);
 
 		switch (index.column()) {
-		case 0:
+		case NAME:
 			cmbtnt.name = val.toString();
 			break;
-		case 1:
-			cmbtnt.initBonus = val.toInt();
+		case INITIATIVE_ROLL:
+			cmbtnt.initRoll = val.toInt();
 			break;
-		case 2:
+		case MAX_HP:
 			cmbtnt.maxHP = val.toInt();
 			break;
-		case 3: 
+		case IS_PLAYER: 
 			cmbtnt.isPlayer = val.toBool();
 			break;
-		case 4: 
+		case PLAYER_NAME: 
 			cmbtnt.player = val.toString();
+			break;
+		case INITIATIVE_BONUS:
+			cmbtnt.initBonus = val.toInt();
 			break;
 		default:
 			return false;
@@ -89,7 +121,7 @@ bool CombatantModel::insertRows(int row, int count, const QModelIndex& parent)
 	beginInsertRows(QModelIndex(), row, row + count - 1);
 
 	for (int position = 0; position < count; ++position) {
-		combatants.insert(row, { QString(), 0, 0, false, QString() });
+		combatants.insert(row, Combatant());
 	}
 
 	endInsertRows();
@@ -107,4 +139,14 @@ bool CombatantModel::removeRows(int row, int count, const QModelIndex& parent)
 
 	endRemoveRows();
 	return true;
+}
+
+const QVector<Combatant>& CombatantModel::getAllCombatants() const
+{
+	return combatants;
+}
+
+Combatant CombatantModel::getCombatantFromIndex(QModelIndex& index)
+{
+	return combatants.at(index.row());
 }

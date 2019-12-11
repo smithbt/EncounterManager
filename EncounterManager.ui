@@ -38,7 +38,7 @@
       <item>
        <widget class="QTableView" name="combatantTableView">
         <property name="editTriggers">
-         <set>QAbstractItemView::NoEditTriggers</set>
+         <set>QAbstractItemView::DoubleClicked|QAbstractItemView::SelectedClicked</set>
         </property>
         <property name="selectionMode">
          <enum>QAbstractItemView::SingleSelection</enum>
@@ -46,12 +46,29 @@
         <property name="selectionBehavior">
          <enum>QAbstractItemView::SelectRows</enum>
         </property>
+        <property name="sortingEnabled">
+         <bool>true</bool>
+        </property>
         <attribute name="horizontalHeaderVisible">
-         <bool>false</bool>
+         <bool>true</bool>
         </attribute>
        </widget>
       </item>
      </layout>
+    </item>
+    <item>
+     <widget class="CombatantWidget" name="currentCombatantWidget" native="true">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2"/>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -64,6 +81,22 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuCombatants">
+    <property name="title">
+     <string>Combatants</string>
+    </property>
+    <addaction name="actionAdd_Combatant"/>
+    <addaction name="actionRemove_Combatant"/>
+   </widget>
+   <widget class="QMenu" name="menuTools">
+    <property name="title">
+     <string>Tools</string>
+    </property>
+    <addaction name="actionRoll_Initiative"/>
+    <addaction name="actionShow_Info"/>
+   </widget>
+   <addaction name="menuCombatants"/>
+   <addaction name="menuTools"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -74,8 +107,45 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionAdd_Combatant">
+   <property name="text">
+    <string>Add Combatant</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="actionRemove_Combatant">
+   <property name="text">
+    <string>Remove Combatant(s)</string>
+   </property>
+  </action>
+  <action name="actionRoll_Initiative">
+   <property name="text">
+    <string>Roll Initiative</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
+  </action>
+  <action name="actionShow_Info">
+   <property name="text">
+    <string>Show Info</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+I</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>CombatantWidget</class>
+   <extends>QWidget</extends>
+   <header>CombatantWidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="EncounterManager.qrc"/>
  </resources>

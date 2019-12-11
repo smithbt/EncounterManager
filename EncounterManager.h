@@ -5,6 +5,9 @@
 #include "ui_EncounterManager.h"
 #include "AddCombatantDialog.h"
 #include "CombatantModel.h"
+#include "CombatantWidget.h"
+
+#define D20 rand()%20+1
 
 class EncounterManager : public QMainWindow
 {
@@ -20,7 +23,11 @@ private:
 
 private slots:
 	void on_addCombatantButton_clicked();
+	void on_actionAdd_Combatant_triggered();
+	void on_actionRemove_Combatant_triggered();
+	void on_actionRoll_Initiative_triggered();
 	void addEntry(QString &name, int initBonus, int maxHP, bool isPlayer, QString &player);
-	void on_combatantTableView_selectionChanged();
 	void on_removeButton_clicked();
+	void on_combatantTableView_clicked(QModelIndex& idx);
+	void on_actionShow_Info_triggered();
 };
