@@ -6,126 +6,123 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>295</width>
-    <height>373</height>
+    <width>269</width>
+    <height>343</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>CombatantWidget</string>
   </property>
-  <widget class="QWidget" name="">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>30</y>
-     <width>267</width>
-     <height>301</height>
-    </rect>
-   </property>
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="3" column="0">
-     <widget class="QSpinBox" name="curHPSpinBox"/>
-    </item>
-    <item row="2" column="0">
-     <widget class="QLabel" name="curHPLabel">
-      <property name="text">
-       <string>Current Hit Points:</string>
-      </property>
-      <property name="buddy">
-       <cstring>curHPSpinBox</cstring>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <widget class="QLabel" name="nameLabel">
-      <property name="text">
-       <string>Name</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="Line" name="playerLine">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="2">
-     <widget class="QLabel" name="playerLabel">
-      <property name="text">
-       <string>Player</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="3">
-     <widget class="QToolButton" name="editButton">
-      <property name="text">
-       <string>...</string>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="0" colspan="4">
-     <widget class="QTextEdit" name="notesEdit"/>
-    </item>
-    <item row="6" column="0" colspan="4">
-     <widget class="QLabel" name="notesLabel">
-      <property name="text">
-       <string>Notes:</string>
-      </property>
-      <property name="buddy">
-       <cstring>notesEdit</cstring>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="0" colspan="4">
-     <widget class="QLabel" name="otherInfo">
-      <property name="text">
-       <string>&lt;no info available&gt;</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="0" colspan="4">
-     <widget class="Line" name="hpLine">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0" colspan="4">
-     <widget class="Line" name="titleLine">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="2" colspan="2">
-     <widget class="QLabel" name="maxHPLabel">
-      <property name="text">
-       <string>Maximum Hit Points:</string>
-      </property>
-      <property name="buddy">
-       <cstring>maxHPEdit</cstring>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="2" colspan="2">
-     <widget class="QLineEdit" name="maxHPEdit">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="1" rowspan="2">
-     <widget class="Line" name="hpSeparatorLine">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0" colspan="2">
+    <widget class="QLineEdit" name="nameEdit">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="text">
+      <string>&lt;name&gt;</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QCheckBox" name="isPlayerCheckBox">
+     <property name="text">
+      <string>PC</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QLineEdit" name="playerEdit">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="text">
+      <string>&lt;player&gt;</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="2">
+    <widget class="QGroupBox" name="hpGroupBox">
+     <property name="title">
+      <string>Hit Points</string>
+     </property>
+     <layout class="QFormLayout" name="formLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="curHPLabel">
+        <property name="text">
+         <string>Current</string>
+        </property>
+        <property name="buddy">
+         <cstring>curHPSpinBox</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QSpinBox" name="curHPSpinBox"/>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="maxHPLabel">
+        <property name="text">
+         <string>Maximum</string>
+        </property>
+        <property name="buddy">
+         <cstring>maxHPEdit</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="maxHPEdit">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="text">
+         <string>0</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="2">
+       <widget class="Line" name="line">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="otherInfoLabel">
+     <property name="text">
+      <string>Other Information: </string>
+     </property>
+     <property name="buddy">
+      <cstring>otherInfoEdit</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0" colspan="2">
+    <widget class="QTextEdit" name="otherInfoEdit"/>
+   </item>
+  </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>isPlayerCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>playerEdit</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>121</x>
+     <y>16</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>198</x>
+     <y>21</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

@@ -10,6 +10,7 @@ struct Combatant {
 	int maxHP;
 	bool isPlayer;
 	QString player;
+	QString otherInfo;
 	bool operator==(const Combatant& other) const
 	{
 		return name == other.name 
@@ -17,7 +18,8 @@ struct Combatant {
 			&& initRoll == other.initRoll
 			&& maxHP == other.maxHP
 			&& isPlayer == other.isPlayer
-			&& player == other.player;
+			&& player == other.player
+			&& otherInfo == other.otherInfo;
 	}
 	Combatant() {
 		name = QString();
@@ -26,6 +28,7 @@ struct Combatant {
 		maxHP = 0;
 		isPlayer = false;
 		player = QString();
+		otherInfo = QString();
 	}
 };
 
@@ -62,7 +65,8 @@ public:
 		INITIATIVE_BONUS = 2,
 		MAX_HP = 3,
 		IS_PLAYER = 4,
-		PLAYER_NAME = 5
+		PLAYER_NAME = 5,
+		OTHER_INFO = 6
 	};
 	CombatantModel(QObject *parent = nullptr);
 	~CombatantModel(); 

@@ -34,3 +34,8 @@ QString AddCombatantDialog::player() const
 {
 	return ui.pcNameEdit->text();
 }
+
+QString AddCombatantDialog::otherInfo() const
+{
+	return ui.otherInfoEdit->toHtml();
+}

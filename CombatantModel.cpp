@@ -16,7 +16,8 @@ int CombatantModel::rowCount(const QModelIndex& parent) const
 
 int CombatantModel::columnCount(const QModelIndex& parent) const
 {
-	return parent.isValid() ? 0 : 6; //Columns: name, initRoll, initBonus, maxHP, isPlayer, playerName
+	// Columns: name, initRoll, initBonus, maxHP, isPlayer, playerName, other info
+	return parent.isValid() ? 0 : 7; 
 }
 
 QVariant CombatantModel::data(const QModelIndex& index, int role) const
@@ -36,6 +37,7 @@ QVariant CombatantModel::data(const QModelIndex& index, int role) const
 		case MAX_HP: return cbt.maxHP;
 		case IS_PLAYER: return cbt.isPlayer;
 		case PLAYER_NAME: return cbt.player;
+		case OTHER_INFO: return cbt.otherInfo;
 		default: break;
 		}
 	}
@@ -64,6 +66,8 @@ QVariant CombatantModel::headerData(int section, Qt::Orientation orientation, in
 			return tr("PC?");
 		case PLAYER_NAME:
 			return tr("Player");
+		case OTHER_INFO:
+			return tr("Other Info");
 		default:
 			break;
 		}
@@ -95,6 +99,9 @@ bool CombatantModel::setData(const QModelIndex& index, const QVariant &val, int 
 			break;
 		case INITIATIVE_BONUS:
 			cmbtnt.initBonus = val.toInt();
+			break;
+		case OTHER_INFO:
+			cmbtnt.otherInfo = val.toString();
 			break;
 		default:
 			return false;

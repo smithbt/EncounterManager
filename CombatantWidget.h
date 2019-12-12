@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QWidget>
+#include <QDataWidgetMapper>
 #include "ui_CombatantWidget.h"
 #include "CombatantModel.h"
 
@@ -10,11 +11,12 @@ class CombatantWidget : public QWidget
 
 public:
 	CombatantWidget(QWidget *parent = Q_NULLPTR);
+	CombatantWidget(QWidget* parent, QDataWidgetMapper* mapper);
 	~CombatantWidget();
 
-public slots:
-	void updateInfo(Combatant& cmbtnt);
-	
+	void setMapper(QDataWidgetMapper* mapper);
+
 private:
 	Ui::CombatantWidget ui;
+	QDataWidgetMapper* mapper;
 };

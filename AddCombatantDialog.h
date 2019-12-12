@@ -17,6 +17,7 @@ public:
 	int maxHP() const;
 	bool isPlayer() const;
 	QString player() const;
+	QString otherInfo() const;
 
 private:
 	Ui::AddCombatantDialog ui;
