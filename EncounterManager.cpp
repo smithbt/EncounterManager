@@ -9,13 +9,27 @@ EncounterManager::EncounterManager(QWidget* parent)
 	ui.setupUi(this);
 
 	proxyModel->setSourceModel(cmbtntModel);
-	ui.combatantTableView->setModel(proxyModel);
+	ui.combatantView->setModel(proxyModel);
 
 	mapper->setModel(proxyModel);
-	connect(ui.combatantTableView->selectionModel(), &QItemSelectionModel::currentRowChanged, 
+	connect(ui.combatantView->selectionModel(), &QItemSelectionModel::currentRowChanged, 
 		mapper, &QDataWidgetMapper::setCurrentModelIndex);
 	ui.currentCombatantWidget->setMapper(mapper);
-	ui.currentCombatantWidget->setVisible(false);
+}
+
+void EncounterManager::nextTurn()
+{
+	QModelIndex curIdx = cmbtntModel->getCurrentTurnIndex();
+	int nxtProxyRow = proxyModel->mapFromSource(curIdx).row() + 1;
+	if (nxtProxyRow == cmbtntModel->rowCount()) nxtProxyRow = 0;
+	QModelIndex nxt = proxyModel->mapToSource(proxyModel->index(nxtProxyRow, 0));
+	cmbtntModel->setCurTurn(nxt);
+	ui.combatantView->update();
+}
+
+void EncounterManager::on_nextButton_clicked()
+{
+	nextTurn();
 }
 
 void EncounterManager::on_actionAdd_Combatant_triggered()
@@ -36,7 +50,8 @@ void EncounterManager::on_actionRoll_Initiative_triggered()
 		int initRoll = D20 + cmbtnt.initBonus;
 		cmbtntModel->setData(idx, initRoll);
 	}
-	ui.combatantTableView->model()->sort(CombatantModel::INITIATIVE_ROLL, Qt::DescendingOrder);
+	ui.combatantView->model()->sort(CombatantModel::INITIATIVE_ROLL, Qt::DescendingOrder);
+	cmbtntModel->setCurTurn(proxyModel->mapToSource(proxyModel->index(0, 0)));
 }
 
 void EncounterManager::on_addCombatantButton_clicked()
@@ -74,7 +89,7 @@ void EncounterManager::addEntry(QString& name, int initBonus, int maxHP, bool is
 
 void EncounterManager::on_removeButton_clicked()
 {
-	const QModelIndexList indexes = ui.combatantTableView->selectionModel()->selectedRows();
+	const QModelIndexList indexes = ui.combatantView->selectionModel()->selectedRows();
 
 	for (QModelIndex index : indexes) {
 		int row = proxyModel->mapToSource(index).row();

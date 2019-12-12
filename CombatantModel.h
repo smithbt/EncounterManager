@@ -2,6 +2,7 @@
 
 #include <QAbstractTableModel>
 #include <QVector>
+#include <QBrush>
 
 struct Combatant {
 	QString name;
@@ -91,6 +92,11 @@ public:
 	Combatant getCombatantFromIndex(QModelIndex& index);
 	const QVector<Combatant>& getAllCombatants() const;
 
+	void setCurTurn(QModelIndex& nxt);
+
+	QModelIndex getCurrentTurnIndex();
+
 private:
 	QVector<Combatant> combatants;
+	int curTurn;
 };

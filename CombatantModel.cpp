@@ -3,6 +3,7 @@
 CombatantModel::CombatantModel(QObject *parent)
 	: QAbstractTableModel(parent)
 {
+	curTurn = -1;
 }
 
 CombatantModel::~CombatantModel()
@@ -42,8 +43,8 @@ QVariant CombatantModel::data(const QModelIndex& index, int role) const
 		default: break;
 		}
 	}
-	else if (role == Qt::BackgroundColorRole) {
-
+	else if (role == Qt::BackgroundColorRole && index.row() == curTurn)	{ 
+		return QBrush(Qt::green);
 	}
 	return QVariant();
 }
@@ -157,6 +158,16 @@ bool CombatantModel::removeRows(int row, int count, const QModelIndex& parent)
 const QVector<Combatant>& CombatantModel::getAllCombatants() const
 {
 	return combatants;
+}
+
+void CombatantModel::setCurTurn(QModelIndex& nxt)
+{
+	curTurn = nxt.row();
+}
+
+QModelIndex CombatantModel::getCurrentTurnIndex()
+{
+	return index(curTurn, 0);
 }
 
 Combatant CombatantModel::getCombatantFromIndex(QModelIndex& index)
