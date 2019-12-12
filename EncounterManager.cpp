@@ -62,6 +62,8 @@ void EncounterManager::addEntry(QString& name, int initBonus, int maxHP, bool is
 	cmbtntModel->setData(index, initBonus, Qt::EditRole);
 	index = cmbtntModel->index(0, CombatantModel::MAX_HP, QModelIndex());
 	cmbtntModel->setData(index, maxHP, Qt::EditRole);
+	index = cmbtntModel->index(0, CombatantModel::CUR_HP, QModelIndex());
+	cmbtntModel->setData(index, maxHP, Qt::EditRole);
 	index = cmbtntModel->index(0, CombatantModel::IS_PLAYER, QModelIndex());
 	cmbtntModel->setData(index, isPlayer, Qt::EditRole);
 	index = cmbtntModel->index(0, CombatantModel::PLAYER_NAME, QModelIndex());

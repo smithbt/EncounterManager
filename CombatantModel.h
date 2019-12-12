@@ -7,6 +7,7 @@ struct Combatant {
 	QString name;
 	int initBonus;
 	int initRoll;
+	int curHP;
 	int maxHP;
 	bool isPlayer;
 	QString player;
@@ -16,6 +17,7 @@ struct Combatant {
 		return name == other.name 
 			&& initBonus == other.initBonus
 			&& initRoll == other.initRoll
+			&& curHP == other.curHP
 			&& maxHP == other.maxHP
 			&& isPlayer == other.isPlayer
 			&& player == other.player
@@ -25,6 +27,7 @@ struct Combatant {
 		name = QString();
 		initBonus = 0;
 		initRoll = 0;
+		curHP = 0;
 		maxHP = 0;
 		isPlayer = false;
 		player = QString();
@@ -38,9 +41,11 @@ inline QDataStream& operator<<(QDataStream& stream, const Combatant& cmbtnt)
 		<< cmbtnt.name 
 		<< QString(cmbtnt.initBonus) 
 		<< QString(cmbtnt.initRoll)
+		<< QString(cmbtnt.curHP)
 		<< QString(cmbtnt.maxHP)
 		<< QString(cmbtnt.isPlayer)
-		<< cmbtnt.player;
+		<< cmbtnt.player
+		<< cmbtnt.otherInfo;
 }
 
 inline QDataStream& operator>>(QDataStream& stream, Combatant& cmbtnt)
@@ -49,9 +54,11 @@ inline QDataStream& operator>>(QDataStream& stream, Combatant& cmbtnt)
 		>> cmbtnt.name
 		>> QString(cmbtnt.initBonus)
 		>> QString(cmbtnt.initRoll)
+		>> QString(cmbtnt.curHP)
 		>> QString(cmbtnt.maxHP)
 		>> QString(cmbtnt.isPlayer)
-		>> cmbtnt.player;
+		>> cmbtnt.player
+		>> cmbtnt.otherInfo;
 }
 
 class CombatantModel : public QAbstractTableModel
@@ -63,10 +70,11 @@ public:
 		NAME = 0,
 		INITIATIVE_ROLL = 1,
 		INITIATIVE_BONUS = 2,
-		MAX_HP = 3,
-		IS_PLAYER = 4,
-		PLAYER_NAME = 5,
-		OTHER_INFO = 6
+		CUR_HP = 3,
+		MAX_HP = 4,
+		IS_PLAYER = 5,
+		PLAYER_NAME = 6,
+		OTHER_INFO = 7
 	};
 	CombatantModel(QObject *parent = nullptr);
 	~CombatantModel(); 
