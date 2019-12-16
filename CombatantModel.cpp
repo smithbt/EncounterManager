@@ -32,15 +32,15 @@ QVariant CombatantModel::data(const QModelIndex& index, int role) const
 	const auto& cbt = combatants.at(row);
 	if (role == Qt::DisplayRole || role == Qt::EditRole) {
 		switch (index.column()) {
-		case NAME: return cbt.name;
-		case INITIATIVE_ROLL: return cbt.initRoll;
-		case INITIATIVE_BONUS: return cbt.initBonus;
-		case CUR_HP: return cbt.curHP;
-		case MAX_HP: return cbt.maxHP;
-		case IS_PLAYER: return cbt.isPlayer;
-		case PLAYER_NAME: return cbt.player;
-		case OTHER_INFO: return cbt.otherInfo;
-		case CURRENT_TURN: return cbt.isCurrentTurn;
+		case Combatant::NAME: return cbt.name;
+		case Combatant::INITIATIVE_ROLL: return cbt.initRoll;
+		case Combatant::INITIATIVE_BONUS: return cbt.initBonus;
+		case Combatant::CUR_HP: return cbt.curHP;
+		case Combatant::MAX_HP: return cbt.maxHP;
+		case Combatant::IS_PLAYER: return cbt.isPlayer;
+		case Combatant::PLAYER_NAME: return cbt.player;
+		case Combatant::OTHER_INFO: return cbt.otherInfo;
+		case Combatant::CURRENT_TURN: return cbt.isCurrentTurn;
 		default: break;
 		}
 	}
@@ -58,23 +58,23 @@ QVariant CombatantModel::headerData(int section, Qt::Orientation orientation, in
 
 	if (orientation == Qt::Horizontal) {
 		switch (section) {
-		case NAME:
+		case Combatant::NAME:
 			return tr("Name");
-		case INITIATIVE_ROLL:
+		case Combatant::INITIATIVE_ROLL:
 			return tr("Initiative Roll");
-		case INITIATIVE_BONUS:
+		case Combatant::INITIATIVE_BONUS:
 			return tr("Initiative Bonus");
-		case CUR_HP:
+		case Combatant::CUR_HP:
 			return tr("Current HP");
-		case MAX_HP:
+		case Combatant::MAX_HP:
 			return tr("Max HP");
-		case IS_PLAYER:
+		case Combatant::IS_PLAYER:
 			return tr("PC?");
-		case PLAYER_NAME:
+		case Combatant::PLAYER_NAME:
 			return tr("Player");
-		case OTHER_INFO:
+		case Combatant::OTHER_INFO:
 			return tr("Other Info");
-		case CURRENT_TURN:
+		case Combatant::CURRENT_TURN:
 			return tr("Current Turn?");
 		default:
 			break;
@@ -90,31 +90,31 @@ bool CombatantModel::setData(const QModelIndex& index, const QVariant &val, int 
 		auto cmbtnt = combatants.at(row);
 
 		switch (index.column()) {
-		case NAME:
+		case Combatant::NAME:
 			cmbtnt.name = val.toString();
 			break;
-		case INITIATIVE_ROLL:
+		case Combatant::INITIATIVE_ROLL:
 			cmbtnt.initRoll = val.toInt();
 			break;
-		case CUR_HP:
+		case Combatant::CUR_HP:
 			cmbtnt.curHP = val.toInt();
 			break;
-		case MAX_HP:
+		case Combatant::MAX_HP:
 			cmbtnt.maxHP = val.toInt();
 			break;
-		case IS_PLAYER: 
+		case Combatant::IS_PLAYER:
 			cmbtnt.isPlayer = val.toBool();
 			break;
-		case PLAYER_NAME: 
+		case Combatant::PLAYER_NAME:
 			cmbtnt.player = val.toString();
 			break;
-		case INITIATIVE_BONUS:
+		case Combatant::INITIATIVE_BONUS:
 			cmbtnt.initBonus = val.toInt();
 			break;
-		case OTHER_INFO:
+		case Combatant::OTHER_INFO:
 			cmbtnt.otherInfo = val.toString();
 			break;
-		case CURRENT_TURN:
+		case Combatant::CURRENT_TURN:
 			cmbtnt.isCurrentTurn = val.toBool();
 			break;
 		default:

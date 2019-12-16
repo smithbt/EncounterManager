@@ -7,6 +7,7 @@
 #include "AddCombatantDialog.h"
 #include "CombatantModel.h"
 #include "CombatantWidget.h"
+#include "Combatant.h"
 
 #define D20 rand()%20+1
 

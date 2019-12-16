@@ -21,16 +21,16 @@ EncounterManager::EncounterManager(QWidget* parent)
 void EncounterManager::nextTurn()
 {
 	if (curTurn == -1) { // encounter not yet started. Sort initiatives and begin
-		proxyModel->sort(CombatantModel::INITIATIVE_ROLL, Qt::DescendingOrder);
+		proxyModel->sort(Combatant::INITIATIVE_ROLL, Qt::DescendingOrder);
 		curTurn = 0;
 	} else { // Increment current turn
-		QModelIndex cur = proxyModel->mapToSource(proxyModel->index(curTurn, CombatantModel::CURRENT_TURN));
+		QModelIndex cur = proxyModel->mapToSource(proxyModel->index(curTurn, Combatant::CURRENT_TURN));
 		cmbtntModel->setData(cur, false);
 		if (++curTurn >= cmbtntModel->rowCount()) curTurn = 0;
 	}
 
 	// update new current turn
-	QModelIndex nxt = proxyModel->mapToSource(proxyModel->index(curTurn, CombatantModel::CURRENT_TURN));
+	QModelIndex nxt = proxyModel->mapToSource(proxyModel->index(curTurn, Combatant::CURRENT_TURN));
 	cmbtntModel->setData(nxt, true);
 }
 
@@ -56,12 +56,12 @@ void EncounterManager::on_actionRoll_Initiative_triggered()
 		int idx = combatants.indexOf(cmbtnt);
 
 		// update stored roll
-		QModelIndex qmIdx = cmbtntModel->index(idx, CombatantModel::INITIATIVE_ROLL);
+		QModelIndex qmIdx = cmbtntModel->index(idx, Combatant::INITIATIVE_ROLL);
 		int initRoll = D20 + cmbtnt.initBonus;
 		cmbtntModel->setData(qmIdx, initRoll);
 
 		// clear combatant's  current turn flag
-		qmIdx = cmbtntModel->index(idx, CombatantModel::CURRENT_TURN);
+		qmIdx = cmbtntModel->index(idx, Combatant::CURRENT_TURN);
 		cmbtntModel->setData(qmIdx, false);
 	}
 	curTurn = -1; // reset turn flag
@@ -85,19 +85,19 @@ void EncounterManager::addEntry(QString& name, int initBonus, int maxHP, bool is
 {
 	cmbtntModel->insertRows(0, 1, QModelIndex());
 
-	QModelIndex index = cmbtntModel->index(0, CombatantModel::NAME, QModelIndex());
+	QModelIndex index = cmbtntModel->index(0, Combatant::NAME, QModelIndex());
 	cmbtntModel->setData(index, name, Qt::EditRole);
-	index = cmbtntModel->index(0, CombatantModel::INITIATIVE_BONUS, QModelIndex());
+	index = cmbtntModel->index(0, Combatant::INITIATIVE_BONUS, QModelIndex());
 	cmbtntModel->setData(index, initBonus, Qt::EditRole);
-	index = cmbtntModel->index(0, CombatantModel::MAX_HP, QModelIndex());
+	index = cmbtntModel->index(0, Combatant::MAX_HP, QModelIndex());
 	cmbtntModel->setData(index, maxHP, Qt::EditRole);
-	index = cmbtntModel->index(0, CombatantModel::CUR_HP, QModelIndex());
+	index = cmbtntModel->index(0, Combatant::CUR_HP, QModelIndex());
 	cmbtntModel->setData(index, maxHP, Qt::EditRole);
-	index = cmbtntModel->index(0, CombatantModel::IS_PLAYER, QModelIndex());
+	index = cmbtntModel->index(0, Combatant::IS_PLAYER, QModelIndex());
 	cmbtntModel->setData(index, isPlayer, Qt::EditRole);
-	index = cmbtntModel->index(0, CombatantModel::PLAYER_NAME, QModelIndex());
+	index = cmbtntModel->index(0, Combatant::PLAYER_NAME, QModelIndex());
 	cmbtntModel->setData(index, player, Qt::EditRole);
-	index = cmbtntModel->index(0, CombatantModel::OTHER_INFO, QModelIndex());
+	index = cmbtntModel->index(0, Combatant::OTHER_INFO, QModelIndex());
 	cmbtntModel->setData(index, otherInfo, Qt::EditRole);
 }
 

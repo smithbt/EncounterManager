@@ -3,7 +3,7 @@
 #include <QWidget>
 #include <QDataWidgetMapper>
 #include "ui_CombatantWidget.h"
-#include "CombatantModel.h"
+#include "Combatant.h"
 
 class CombatantWidget : public QWidget
 {

@@ -21,12 +21,12 @@ CombatantWidget::~CombatantWidget()
 void CombatantWidget::setMapper(QDataWidgetMapper* mapper)
 {
 	this->mapper = mapper;
-	mapper->addMapping(ui.nameEdit, CombatantModel::NAME);
-	mapper->addMapping(ui.isPlayerCheckBox, CombatantModel::IS_PLAYER, "checked");
-	mapper->addMapping(ui.playerEdit, CombatantModel::PLAYER_NAME);
-	mapper->addMapping(ui.curHPSpinBox, CombatantModel::CUR_HP);
-	mapper->addMapping(ui.maxHPEdit, CombatantModel::MAX_HP);
-	mapper->addMapping(ui.otherInfoEdit, CombatantModel::OTHER_INFO, "html");
-	mapper->addMapping(ui.initRollEdit, CombatantModel::INITIATIVE_ROLL);
-	mapper->addMapping(ui.initBonusEdit, CombatantModel::INITIATIVE_BONUS);
+	mapper->addMapping(ui.nameEdit, Combatant::NAME);
+	mapper->addMapping(ui.isPlayerCheckBox, Combatant::IS_PLAYER, "checked");
+	mapper->addMapping(ui.playerEdit, Combatant::PLAYER_NAME);
+	mapper->addMapping(ui.curHPSpinBox, Combatant::CUR_HP);
+	mapper->addMapping(ui.maxHPEdit, Combatant::MAX_HP);
+	mapper->addMapping(ui.otherInfoEdit, Combatant::OTHER_INFO, "html");
+	mapper->addMapping(ui.initRollEdit, Combatant::INITIATIVE_ROLL);
+	mapper->addMapping(ui.initBonusEdit, Combatant::INITIATIVE_BONUS);
 }
