@@ -3,7 +3,6 @@
 CombatantModel::CombatantModel(QObject *parent)
 	: QAbstractTableModel(parent)
 {
-	curTurn = -1;
 }
 
 CombatantModel::~CombatantModel()
@@ -17,20 +16,21 @@ int CombatantModel::rowCount(const QModelIndex& parent) const
 
 int CombatantModel::columnCount(const QModelIndex& parent) const
 {
-	// Columns: name, initRoll, initBonus, curHP, maxHP, isPlayer, playerName, other info
-	return parent.isValid() ? 0 : 8; 
+	// Columns: name, initRoll, initBonus, curHP, maxHP, isPlayer, playerName, otherInfo, isCurrentTurn
+	return parent.isValid() ? 0 : 9; 
 }
 
 QVariant CombatantModel::data(const QModelIndex& index, int role) const
 {
+	int row = index.row();
 	if (!index.isValid())
 		return QVariant();
 
-	if (index.row() >= combatants.size() || index.row() < 0)
+	if (row >= combatants.size() || row < 0)
 		return QVariant();
 
+	const auto& cbt = combatants.at(row);
 	if (role == Qt::DisplayRole || role == Qt::EditRole) {
-		const auto& cbt = combatants.at(index.row());
 		switch (index.column()) {
 		case NAME: return cbt.name;
 		case INITIATIVE_ROLL: return cbt.initRoll;
@@ -40,10 +40,12 @@ QVariant CombatantModel::data(const QModelIndex& index, int role) const
 		case IS_PLAYER: return cbt.isPlayer;
 		case PLAYER_NAME: return cbt.player;
 		case OTHER_INFO: return cbt.otherInfo;
+		case CURRENT_TURN: return cbt.isCurrentTurn;
 		default: break;
 		}
 	}
-	else if (role == Qt::BackgroundColorRole && index.row() == curTurn)	{ 
+	
+	if (role == Qt::BackgroundColorRole && cbt.isCurrentTurn)	{ 
 		return QBrush(Qt::green);
 	}
 	return QVariant();
@@ -72,6 +74,8 @@ QVariant CombatantModel::headerData(int section, Qt::Orientation orientation, in
 			return tr("Player");
 		case OTHER_INFO:
 			return tr("Other Info");
+		case CURRENT_TURN:
+			return tr("Current Turn?");
 		default:
 			break;
 		}
@@ -109,6 +113,9 @@ bool CombatantModel::setData(const QModelIndex& index, const QVariant &val, int 
 			break;
 		case OTHER_INFO:
 			cmbtnt.otherInfo = val.toString();
+			break;
+		case CURRENT_TURN:
+			cmbtnt.isCurrentTurn = val.toBool();
 			break;
 		default:
 			return false;
@@ -158,16 +165,6 @@ bool CombatantModel::removeRows(int row, int count, const QModelIndex& parent)
 const QVector<Combatant>& CombatantModel::getAllCombatants() const
 {
 	return combatants;
-}
-
-void CombatantModel::setCurTurn(QModelIndex& nxt)
-{
-	curTurn = nxt.row();
-}
-
-QModelIndex CombatantModel::getCurrentTurnIndex()
-{
-	return index(curTurn, 0);
 }
 
 Combatant CombatantModel::getCombatantFromIndex(QModelIndex& index)

@@ -27,4 +27,6 @@ void CombatantWidget::setMapper(QDataWidgetMapper* mapper)
 	mapper->addMapping(ui.curHPSpinBox, CombatantModel::CUR_HP);
 	mapper->addMapping(ui.maxHPEdit, CombatantModel::MAX_HP);
 	mapper->addMapping(ui.otherInfoEdit, CombatantModel::OTHER_INFO, "html");
+	mapper->addMapping(ui.initRollEdit, CombatantModel::INITIATIVE_ROLL);
+	mapper->addMapping(ui.initBonusEdit, CombatantModel::INITIATIVE_BONUS);
 }

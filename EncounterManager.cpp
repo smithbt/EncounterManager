@@ -10,6 +10,7 @@ EncounterManager::EncounterManager(QWidget* parent)
 
 	proxyModel->setSourceModel(cmbtntModel);
 	ui.combatantView->setModel(proxyModel);
+	curTurn = -1;
 
 	mapper->setModel(proxyModel);
 	connect(ui.combatantView->selectionModel(), &QItemSelectionModel::currentRowChanged, 
@@ -19,12 +20,18 @@ EncounterManager::EncounterManager(QWidget* parent)
 
 void EncounterManager::nextTurn()
 {
-	QModelIndex curIdx = cmbtntModel->getCurrentTurnIndex();
-	int nxtProxyRow = proxyModel->mapFromSource(curIdx).row() + 1;
-	if (nxtProxyRow == cmbtntModel->rowCount()) nxtProxyRow = 0;
-	QModelIndex nxt = proxyModel->mapToSource(proxyModel->index(nxtProxyRow, 0));
-	cmbtntModel->setCurTurn(nxt);
-	ui.combatantView->update();
+	if (curTurn == -1) { // encounter not yet started. Sort initiatives and begin
+		proxyModel->sort(CombatantModel::INITIATIVE_ROLL, Qt::DescendingOrder);
+		curTurn = 0;
+	} else { // Increment current turn
+		QModelIndex cur = proxyModel->mapToSource(proxyModel->index(curTurn, CombatantModel::CURRENT_TURN));
+		cmbtntModel->setData(cur, false);
+		if (++curTurn >= cmbtntModel->rowCount()) curTurn = 0;
+	}
+
+	// update new current turn
+	QModelIndex nxt = proxyModel->mapToSource(proxyModel->index(curTurn, CombatantModel::CURRENT_TURN));
+	cmbtntModel->setData(nxt, true);
 }
 
 void EncounterManager::on_nextButton_clicked()
@@ -46,12 +53,19 @@ void EncounterManager::on_actionRoll_Initiative_triggered()
 {
 	QVector<Combatant> combatants = cmbtntModel->getAllCombatants();
 	for (Combatant cmbtnt : combatants) {
-		QModelIndex idx = cmbtntModel->index(combatants.indexOf(cmbtnt), CombatantModel::INITIATIVE_ROLL);
+		int idx = combatants.indexOf(cmbtnt);
+
+		// update stored roll
+		QModelIndex qmIdx = cmbtntModel->index(idx, CombatantModel::INITIATIVE_ROLL);
 		int initRoll = D20 + cmbtnt.initBonus;
-		cmbtntModel->setData(idx, initRoll);
+		cmbtntModel->setData(qmIdx, initRoll);
+
+		// clear combatant's  current turn flag
+		qmIdx = cmbtntModel->index(idx, CombatantModel::CURRENT_TURN);
+		cmbtntModel->setData(qmIdx, false);
 	}
-	ui.combatantView->model()->sort(CombatantModel::INITIATIVE_ROLL, Qt::DescendingOrder);
-	cmbtntModel->setCurTurn(proxyModel->mapToSource(proxyModel->index(0, 0)));
+	curTurn = -1; // reset turn flag
+	nextTurn();
 }
 
 void EncounterManager::on_addCombatantButton_clicked()

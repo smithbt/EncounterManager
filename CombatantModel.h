@@ -13,6 +13,7 @@ struct Combatant {
 	bool isPlayer;
 	QString player;
 	QString otherInfo;
+	bool isCurrentTurn;
 	bool operator==(const Combatant& other) const
 	{
 		return name == other.name 
@@ -22,7 +23,8 @@ struct Combatant {
 			&& maxHP == other.maxHP
 			&& isPlayer == other.isPlayer
 			&& player == other.player
-			&& otherInfo == other.otherInfo;
+			&& otherInfo == other.otherInfo
+			&& isCurrentTurn == other.isCurrentTurn;
 	}
 	Combatant() {
 		name = QString();
@@ -33,6 +35,7 @@ struct Combatant {
 		isPlayer = false;
 		player = QString();
 		otherInfo = QString();
+		isCurrentTurn = false;
 	}
 };
 
@@ -46,7 +49,8 @@ inline QDataStream& operator<<(QDataStream& stream, const Combatant& cmbtnt)
 		<< QString(cmbtnt.maxHP)
 		<< QString(cmbtnt.isPlayer)
 		<< cmbtnt.player
-		<< cmbtnt.otherInfo;
+		<< cmbtnt.otherInfo
+		<< QString(cmbtnt.isCurrentTurn);
 }
 
 inline QDataStream& operator>>(QDataStream& stream, Combatant& cmbtnt)
@@ -59,7 +63,8 @@ inline QDataStream& operator>>(QDataStream& stream, Combatant& cmbtnt)
 		>> QString(cmbtnt.maxHP)
 		>> QString(cmbtnt.isPlayer)
 		>> cmbtnt.player
-		>> cmbtnt.otherInfo;
+		>> cmbtnt.otherInfo
+		>> QString(cmbtnt.isCurrentTurn);
 }
 
 class CombatantModel : public QAbstractTableModel
@@ -75,7 +80,8 @@ public:
 		MAX_HP = 4,
 		IS_PLAYER = 5,
 		PLAYER_NAME = 6,
-		OTHER_INFO = 7
+		OTHER_INFO = 7, 
+		CURRENT_TURN = 8
 	};
 	CombatantModel(QObject *parent = nullptr);
 	~CombatantModel(); 
@@ -92,11 +98,6 @@ public:
 	Combatant getCombatantFromIndex(QModelIndex& index);
 	const QVector<Combatant>& getAllCombatants() const;
 
-	void setCurTurn(QModelIndex& nxt);
-
-	QModelIndex getCurrentTurnIndex();
-
 private:
 	QVector<Combatant> combatants;
-	int curTurn;
 };

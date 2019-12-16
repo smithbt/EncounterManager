@@ -24,6 +24,7 @@ private:
 	CombatantModel* cmbtntModel;
 	QSortFilterProxyModel* proxyModel;
 	QDataWidgetMapper *mapper;
+	int curTurn;
 
 private slots:
 	void on_nextButton_clicked();
