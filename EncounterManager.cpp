@@ -124,3 +124,56 @@ bool EncounterManager::on_actionSave_triggered()
 		return true;
 	}
 }
+
+bool EncounterManager::on_actionSave_Encounter_triggered()
+{
+	QString fileName = QFileDialog::getSaveFileName(this, tr("Save file"), "..", tr("JSON Files (*.json)"));
+	QFile saveFile(fileName);
+
+	if (!saveFile.open(QIODevice::WriteOnly)) {
+		qWarning("Could not open file.");
+		return false;
+	}
+
+	QJsonObject encounter;
+	QJsonArray cmbtntArray;
+	QVector<Combatant> combatants = cmbtntModel->getAllCombatants();
+	for (Combatant cmbtnt : combatants) {
+
+		QJsonObject cmbtntObj;
+		cmbtnt.write(cmbtntObj);
+		cmbtntArray.append(cmbtntObj);
+	}
+	encounter["combatants"] = cmbtntArray;
+	QJsonDocument saveDoc(encounter);
+	saveFile.write(saveDoc.toJson());
+	return true;
+}
+
+bool EncounterManager::on_actionLoad_Encounter_triggered() 
+{
+	QString fileName = QFileDialog::getOpenFileName(this, tr("Open file"), "..", tr("JSON Files (*.json)"));
+	QFile loadFile(fileName);
+
+	if (!loadFile.open(QIODevice::ReadOnly)) {
+		qWarning("Could not open file.");
+		return false;
+	}
+
+	QByteArray loadData = loadFile.readAll();
+
+	QJsonDocument loadDoc(QJsonDocument::fromJson(loadData));
+
+	QJsonObject json = loadDoc.object();
+	if (json.contains("combatants") && json["combatants"].isArray()) {
+		QJsonArray cmbtntArray = json["combatants"].toArray();
+		// TODO: memory management
+		for (int i = 0; i < cmbtntArray.size(); ++i) {
+			QJsonObject cmbtntObj = cmbtntArray[i].toObject();
+			Combatant cmbtnt;
+			cmbtnt.read(cmbtntObj);
+			cmbtntModel->addCombatant(0, cmbtnt);
+		}
+	}
+	return true;
+}

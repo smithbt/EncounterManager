@@ -91,6 +91,8 @@
     <property name="title">
      <string>Encounter</string>
     </property>
+    <addaction name="actionLoad_Encounter"/>
+    <addaction name="actionSave_Encounter"/>
     <addaction name="actionRoll_Initiative"/>
     <addaction name="separator"/>
     <addaction name="actionAdd_Combatant"/>
@@ -139,10 +141,20 @@
   </action>
   <action name="actionSave">
    <property name="text">
-    <string>Save...</string>
+    <string>Save Combatant...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionSave_Encounter">
+   <property name="text">
+    <string>Save Encounter...</string>
+   </property>
+  </action>
+  <action name="actionLoad_Encounter">
+   <property name="text">
+    <string>Load Encounter...</string>
    </property>
   </action>
  </widget>

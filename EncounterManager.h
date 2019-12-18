@@ -3,6 +3,11 @@
 #include <QtWidgets/QMainWindow>
 #include <QSortFilterProxyModel>
 #include <QDataWidgetMapper>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QFile>
+#include <QFileDialog>
 #include "ui_EncounterManager.h"
 #include "AddCombatantDialog.h"
 #include "CombatantModel.h"
@@ -37,4 +42,6 @@ private slots:
 	void on_removeButton_clicked();
 	void on_actionToggle_Info_triggered();
 	bool on_actionSave_triggered();
+	bool on_actionSave_Encounter_triggered();
+	bool on_actionLoad_Encounter_triggered();
 };
