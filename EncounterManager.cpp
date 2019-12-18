@@ -91,7 +91,14 @@ void EncounterManager::on_removeButton_clicked()
 	}
 }
 
-void EncounterManager::on_actionShow_Info_triggered() 
+void EncounterManager::on_actionToggle_Info_triggered() 
 {
-	ui.currentCombatantWidget->setVisible(!ui.currentCombatantWidget->isVisible());
+	if (ui.currentCombatantWidget->isVisible()) {
+		ui.currentCombatantWidget->setVisible(false);
+		ui.actionToggle_Info->setText("Show Info");
+	}
+	else {
+		ui.currentCombatantWidget->setVisible(true);
+		ui.actionToggle_Info->setText("Hide Info");
+	}
 }

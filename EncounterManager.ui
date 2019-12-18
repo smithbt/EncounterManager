@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
+    <width>532</width>
     <height>411</height>
    </rect>
   </property>
@@ -15,6 +15,13 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="2">
+     <widget class="QPushButton" name="removeButton">
+      <property name="text">
+       <string>Remove</string>
+      </property>
+     </widget>
+    </item>
     <item row="0" column="1">
      <widget class="QPushButton" name="addCombatantButton">
       <property name="text">
@@ -22,10 +29,29 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="2">
-     <widget class="QPushButton" name="removeButton">
+    <item row="2" column="2">
+     <widget class="QPushButton" name="nextButton">
       <property name="text">
-       <string>Remove</string>
+       <string>Next Turn</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1" colspan="2">
+     <widget class="QListView" name="combatantView">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
+      <property name="selectionMode">
+       <enum>QAbstractItemView::SingleSelection</enum>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
       </property>
      </widget>
     </item>
@@ -42,26 +68,6 @@
       </property>
      </widget>
     </item>
-    <item row="2" column="2">
-     <widget class="QPushButton" name="nextButton">
-      <property name="text">
-       <string>Next Turn</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1" colspan="2">
-     <widget class="QListView" name="combatantView">
-      <property name="editTriggers">
-       <set>QAbstractItemView::DoubleClicked|QAbstractItemView::SelectedClicked</set>
-      </property>
-      <property name="selectionMode">
-       <enum>QAbstractItemView::SingleSelection</enum>
-      </property>
-      <property name="selectionBehavior">
-       <enum>QAbstractItemView::SelectRows</enum>
-      </property>
-     </widget>
-    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -69,26 +75,27 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>600</width>
+     <width>532</width>
      <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuCombatants">
     <property name="title">
-     <string>Combatants</string>
+     <string>Combatant</string>
     </property>
+    <addaction name="actionToggle_Info"/>
+   </widget>
+   <widget class="QMenu" name="menuEncounter">
+    <property name="title">
+     <string>Encounter</string>
+    </property>
+    <addaction name="actionRoll_Initiative"/>
+    <addaction name="separator"/>
     <addaction name="actionAdd_Combatant"/>
     <addaction name="actionRemove_Combatant"/>
    </widget>
-   <widget class="QMenu" name="menuTools">
-    <property name="title">
-     <string>Tools</string>
-    </property>
-    <addaction name="actionRoll_Initiative"/>
-    <addaction name="actionShow_Info"/>
-   </widget>
+   <addaction name="menuEncounter"/>
    <addaction name="menuCombatants"/>
-   <addaction name="menuTools"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -109,7 +116,7 @@
   </action>
   <action name="actionRemove_Combatant">
    <property name="text">
-    <string>Remove Combatant(s)</string>
+    <string>Remove Combatant</string>
    </property>
   </action>
   <action name="actionRoll_Initiative">
@@ -120,9 +127,9 @@
     <string>Ctrl+R</string>
    </property>
   </action>
-  <action name="actionShow_Info">
+  <action name="actionToggle_Info">
    <property name="text">
-    <string>Show/Hide Info</string>
+    <string>Hide Info</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+I</string>

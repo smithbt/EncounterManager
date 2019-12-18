@@ -35,5 +35,5 @@ private slots:
 	void on_actionRemove_Combatant_triggered();
 	void on_actionRoll_Initiative_triggered();
 	void on_removeButton_clicked();
-	void on_actionShow_Info_triggered();
+	void on_actionToggle_Info_triggered();
 };
