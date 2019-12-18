@@ -17,8 +17,6 @@ class EncounterManager : public QMainWindow
 
 public:
 	EncounterManager(QWidget *parent = Q_NULLPTR);
-	void nextTurn();
-
 
 private:
 	Ui::EncounterManagerClass ui;
@@ -27,13 +25,15 @@ private:
 	QDataWidgetMapper *mapper;
 	int curTurn;
 
+	void addEntry(const Combatant& cmbtnt);
+	void nextTurn();
+
 private slots:
 	void on_nextButton_clicked();
 	void on_addCombatantButton_clicked();
 	void on_actionAdd_Combatant_triggered();
 	void on_actionRemove_Combatant_triggered();
 	void on_actionRoll_Initiative_triggered();
-	void addEntry(QString& name, int initBonus, int maxHP, bool isPlayer, QString& player, QString& otherInfo);
 	void on_removeButton_clicked();
 	void on_actionShow_Info_triggered();
 };

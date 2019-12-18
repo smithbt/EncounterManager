@@ -72,33 +72,13 @@ void EncounterManager::on_addCombatantButton_clicked()
 {
 	AddCombatantDialog dialog(this);
 	if (dialog.exec()) {
-		addEntry(dialog.name(),
-			dialog.initBonus(),
-			dialog.maxHP(),
-			dialog.isPlayer(),
-			dialog.player(),
-			dialog.otherInfo());
+		addEntry(dialog.getCombatant());
 	}
 }
 
-void EncounterManager::addEntry(QString& name, int initBonus, int maxHP, bool isPlayer, QString& player, QString& otherInfo)
+void EncounterManager::addEntry(const Combatant& cmbtnt)
 {
-	cmbtntModel->insertRows(0, 1, QModelIndex());
-
-	QModelIndex index = cmbtntModel->index(0, Combatant::NAME, QModelIndex());
-	cmbtntModel->setData(index, name, Qt::EditRole);
-	index = cmbtntModel->index(0, Combatant::INITIATIVE_BONUS, QModelIndex());
-	cmbtntModel->setData(index, initBonus, Qt::EditRole);
-	index = cmbtntModel->index(0, Combatant::MAX_HP, QModelIndex());
-	cmbtntModel->setData(index, maxHP, Qt::EditRole);
-	index = cmbtntModel->index(0, Combatant::CUR_HP, QModelIndex());
-	cmbtntModel->setData(index, maxHP, Qt::EditRole);
-	index = cmbtntModel->index(0, Combatant::IS_PLAYER, QModelIndex());
-	cmbtntModel->setData(index, isPlayer, Qt::EditRole);
-	index = cmbtntModel->index(0, Combatant::PLAYER_NAME, QModelIndex());
-	cmbtntModel->setData(index, player, Qt::EditRole);
-	index = cmbtntModel->index(0, Combatant::OTHER_INFO, QModelIndex());
-	cmbtntModel->setData(index, otherInfo, Qt::EditRole);
+	cmbtntModel->addCombatant(0, cmbtnt);
 }
 
 void EncounterManager::on_removeButton_clicked()

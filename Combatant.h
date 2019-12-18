@@ -1,6 +1,8 @@
 #pragma once
 
 #include <QString>
+#include <QJsonObject>
+#include <QVariant>
 
 class Combatant
 {
@@ -33,6 +35,13 @@ public:
 	bool isCurrentTurn;
 
 	bool operator==(const Combatant& other) const;
+	bool operator!=(const Combatant& other) const;
+
+	void read(const QJsonObject& json);
+	void write(QJsonObject& json) const;
+
+	QVariant valueFromField(int field);
+	bool isEmpty();
 
 	//void setName(QString name);
 	//void setIsPlayer(bool isPlayer);
@@ -40,14 +49,14 @@ public:
 	//void setInitBonus(int initBonus);
 	//void setMaxHP(int maxHP);
 	//void setOtherInfo(QString otherInfo);
-	//
+	
 	//QString getName();
 	//bool isPC();
 	//QString getPlayer();
 	//int getInitBonus();
 	//int getMaxHP();
 	//QString getOtherInfo();
-	//bool isEmpty();
+	
 };
 
 inline QDataStream& operator<<(QDataStream& stream, const Combatant& cmbtnt)

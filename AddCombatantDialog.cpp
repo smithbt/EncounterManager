@@ -4,38 +4,39 @@ AddCombatantDialog::AddCombatantDialog(QWidget *parent)
 	: QDialog(parent)
 {
 	ui.setupUi(this);
+	cmbtnt = Combatant();
 }
 
 AddCombatantDialog::~AddCombatantDialog()
 {
 }
 
-QString AddCombatantDialog::name() const
+Combatant& AddCombatantDialog::getCombatant()
 {
-	return ui.nameEdit->text();
+	if (cmbtnt.isEmpty()) {
+		cmbtnt.name = ui.nameEdit->text();
+		cmbtnt.initBonus = ui.initEdit->value();
+		cmbtnt.maxHP = ui.hpEdit->value();
+		cmbtnt.isPlayer = ui.yesButton->isChecked();
+		cmbtnt.player = ui.pcNameEdit->text();
+		cmbtnt.otherInfo = ui.otherInfoEdit->toHtml();
+	}
+	return cmbtnt;
 }
 
-int AddCombatantDialog::initBonus() const
-{
-	return ui.initEdit->value();
-}
+bool AddCombatantDialog::on_loadFileButton_clicked() {
+	QString fileName = QFileDialog::getOpenFileName(this, tr("Open file"), "..", tr("JSON Files (*.json)"));
+	QFile loadFile(fileName);
 
-int AddCombatantDialog::maxHP() const
-{
-	return ui.hpEdit->value();
-}
+	if (!loadFile.open(QIODevice::ReadOnly)) {
+		qWarning("Could not open file.");
+		return false;
+	}
 
-bool AddCombatantDialog::isPlayer() const
-{
-	return ui.yesButton->isChecked();
-}
+	QByteArray cmbtntData = loadFile.readAll();
 
-QString AddCombatantDialog::player() const
-{
-	return ui.pcNameEdit->text();
-}
+	QJsonDocument loadDoc(QJsonDocument::fromJson(cmbtntData));
 
-QString AddCombatantDialog::otherInfo() const
-{
-	return ui.otherInfoEdit->toHtml();
+	cmbtnt.read(loadDoc.object());
+	return true;
 }

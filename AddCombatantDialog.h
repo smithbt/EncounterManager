@@ -1,8 +1,10 @@
 #pragma once
 
 #include <QDialog>
+#include <QFileDialog>
+#include <QJsonDocument>
 #include "ui_AddCombatantDialog.h"
-#include "CombatantModel.h"
+#include "Combatant.h"
 
 class AddCombatantDialog : public QDialog
 {
@@ -12,13 +14,12 @@ public:
 	AddCombatantDialog(QWidget *parent = Q_NULLPTR);
 	~AddCombatantDialog();
 
-	QString name() const;
-	int initBonus() const;
-	int maxHP() const;
-	bool isPlayer() const;
-	QString player() const;
-	QString otherInfo() const;
+	Combatant& getCombatant();
 
 private:
 	Ui::AddCombatantDialog ui;
+	Combatant cmbtnt;
+
+private slots:
+	bool on_loadFileButton_clicked();
 };

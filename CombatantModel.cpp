@@ -128,6 +128,18 @@ bool CombatantModel::setData(const QModelIndex& index, const QVariant &val, int 
 	return false;
 }
 
+bool CombatantModel::addCombatant(int row, const Combatant& cmbtnt, const QModelIndex& parent)
+{
+	Q_UNUSED(parent);
+	beginInsertRows(QModelIndex(), row, row);
+
+	combatants.insert(row, cmbtnt);
+
+	endInsertRows();
+	emit dataChanged(index(row, 0), index(row, columnCount()), { Qt::DisplayRole, Qt::EditRole });
+	return true;
+}
+
 Qt::ItemFlags CombatantModel::flags(const QModelIndex& index) const
 {
 	if (!index.isValid())

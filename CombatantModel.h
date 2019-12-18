@@ -20,6 +20,8 @@ public:
 	Qt::ItemFlags flags(const QModelIndex& index) const override;
 
 	bool setData(const QModelIndex& index, const QVariant &val, int role = Qt::EditRole) override;
+	bool addCombatant(int row, const Combatant& cmbtnt, const QModelIndex& parent = QModelIndex());
+
 	bool insertRows(int row, int count, const QModelIndex& parent = QModelIndex()) override;
 	bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex()) override;
 	Combatant getCombatantFromIndex(QModelIndex& index);
