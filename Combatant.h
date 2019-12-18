@@ -7,6 +7,15 @@
 class Combatant
 {
 private:
+	QString name;
+	int initBonus;
+	int initRoll;
+	int curHP;
+	int maxHP;
+	bool isPlayer;
+	QString player;
+	QString otherInfo;
+	bool isCurrentTurn;
 
 public:
 	Combatant();
@@ -24,65 +33,14 @@ public:
 		CURRENT_TURN = 8
 	};
 
-	QString name;
-	int initBonus;
-	int initRoll;
-	int curHP;
-	int maxHP;
-	bool isPlayer;
-	QString player;
-	QString otherInfo;
-	bool isCurrentTurn;
-
 	bool operator==(const Combatant& other) const;
 	bool operator!=(const Combatant& other) const;
 
+	QVariant getFieldValue(int field) const;
+	bool setFieldValue(int field, const QVariant& value);
+
 	void read(const QJsonObject& json);
 	void write(QJsonObject& json) const;
-
-	QVariant valueFromField(int field);
 	bool isEmpty();
-
-	//void setName(QString name);
-	//void setIsPlayer(bool isPlayer);
-	//void setPlayer(QString player);
-	//void setInitBonus(int initBonus);
-	//void setMaxHP(int maxHP);
-	//void setOtherInfo(QString otherInfo);
-	
-	//QString getName();
-	//bool isPC();
-	//QString getPlayer();
-	//int getInitBonus();
-	//int getMaxHP();
-	//QString getOtherInfo();
 	
 };
-
-inline QDataStream& operator<<(QDataStream& stream, const Combatant& cmbtnt)
-{
-	return stream
-		<< cmbtnt.name
-		<< QString(cmbtnt.initBonus)
-		<< QString(cmbtnt.initRoll)
-		<< QString(cmbtnt.curHP)
-		<< QString(cmbtnt.maxHP)
-		<< QString(cmbtnt.isPlayer)
-		<< cmbtnt.player
-		<< cmbtnt.otherInfo
-		<< QString(cmbtnt.isCurrentTurn);
-}
-
-inline QDataStream& operator>>(QDataStream& stream, Combatant& cmbtnt)
-{
-	return stream
-		>> cmbtnt.name
-		>> QString(cmbtnt.initBonus)
-		>> QString(cmbtnt.initRoll)
-		>> QString(cmbtnt.curHP)
-		>> QString(cmbtnt.maxHP)
-		>> QString(cmbtnt.isPlayer)
-		>> cmbtnt.player
-		>> cmbtnt.otherInfo
-		>> QString(cmbtnt.isCurrentTurn);
-}

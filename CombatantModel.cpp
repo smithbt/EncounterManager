@@ -23,29 +23,18 @@ int CombatantModel::columnCount(const QModelIndex& parent) const
 QVariant CombatantModel::data(const QModelIndex& index, int role) const
 {
 	int row = index.row();
-	if (!index.isValid())
+	if (!index.isValid()) // invalid index
 		return QVariant();
 
-	if (row >= combatants.size() || row < 0)
+	if (row >= combatants.size() || row < 0) // out of range
 		return QVariant();
 
-	const auto& cbt = combatants.at(row);
-	if (role == Qt::DisplayRole || role == Qt::EditRole) {
-		switch (index.column()) {
-		case Combatant::NAME: return cbt.name;
-		case Combatant::INITIATIVE_ROLL: return cbt.initRoll;
-		case Combatant::INITIATIVE_BONUS: return cbt.initBonus;
-		case Combatant::CUR_HP: return cbt.curHP;
-		case Combatant::MAX_HP: return cbt.maxHP;
-		case Combatant::IS_PLAYER: return cbt.isPlayer;
-		case Combatant::PLAYER_NAME: return cbt.player;
-		case Combatant::OTHER_INFO: return cbt.otherInfo;
-		case Combatant::CURRENT_TURN: return cbt.isCurrentTurn;
-		default: break;
-		}
-	}
+	const Combatant& cbt = combatants.at(row); // relevant Combatant
+	if (role == Qt::DisplayRole || role == Qt::EditRole)
+		return cbt.getFieldValue(index.column());
 	
-	if (role == Qt::BackgroundColorRole && cbt.isCurrentTurn)	{ 
+	bool isCurTurn = cbt.getFieldValue(Combatant::CURRENT_TURN).toBool();
+	if (role == Qt::BackgroundColorRole && isCurTurn)	{ 
 		return QBrush(Qt::green);
 	}
 	return QVariant();
@@ -58,26 +47,16 @@ QVariant CombatantModel::headerData(int section, Qt::Orientation orientation, in
 
 	if (orientation == Qt::Horizontal) {
 		switch (section) {
-		case Combatant::NAME:
-			return tr("Name");
-		case Combatant::INITIATIVE_ROLL:
-			return tr("Initiative Roll");
-		case Combatant::INITIATIVE_BONUS:
-			return tr("Initiative Bonus");
-		case Combatant::CUR_HP:
-			return tr("Current HP");
-		case Combatant::MAX_HP:
-			return tr("Max HP");
-		case Combatant::IS_PLAYER:
-			return tr("PC?");
-		case Combatant::PLAYER_NAME:
-			return tr("Player");
-		case Combatant::OTHER_INFO:
-			return tr("Other Info");
-		case Combatant::CURRENT_TURN:
-			return tr("Current Turn?");
-		default:
-			break;
+		case Combatant::NAME: return tr("Name");
+		case Combatant::INITIATIVE_ROLL: return tr("Initiative Roll");
+		case Combatant::INITIATIVE_BONUS: return tr("Initiative Bonus");
+		case Combatant::CUR_HP: return tr("Current HP");
+		case Combatant::MAX_HP: return tr("Max HP");
+		case Combatant::IS_PLAYER: return tr("PC?");
+		case Combatant::PLAYER_NAME: return tr("Player");
+		case Combatant::OTHER_INFO: return tr("Other Info");
+		case Combatant::CURRENT_TURN: return tr("Current Turn?");
+		default: break;
 		}
 	}
 	return QVariant();
@@ -89,37 +68,7 @@ bool CombatantModel::setData(const QModelIndex& index, const QVariant &val, int 
 		const int row = index.row();
 		auto cmbtnt = combatants.at(row);
 
-		switch (index.column()) {
-		case Combatant::NAME:
-			cmbtnt.name = val.toString();
-			break;
-		case Combatant::INITIATIVE_ROLL:
-			cmbtnt.initRoll = val.toInt();
-			break;
-		case Combatant::CUR_HP:
-			cmbtnt.curHP = val.toInt();
-			break;
-		case Combatant::MAX_HP:
-			cmbtnt.maxHP = val.toInt();
-			break;
-		case Combatant::IS_PLAYER:
-			cmbtnt.isPlayer = val.toBool();
-			break;
-		case Combatant::PLAYER_NAME:
-			cmbtnt.player = val.toString();
-			break;
-		case Combatant::INITIATIVE_BONUS:
-			cmbtnt.initBonus = val.toInt();
-			break;
-		case Combatant::OTHER_INFO:
-			cmbtnt.otherInfo = val.toString();
-			break;
-		case Combatant::CURRENT_TURN:
-			cmbtnt.isCurrentTurn = val.toBool();
-			break;
-		default:
-			return false;
-		}
+		if (!cmbtnt.setFieldValue(index.column(), val)) return false;
 
 		combatants.replace(row, cmbtnt);
 		emit dataChanged(index, index, { Qt::DisplayRole, Qt::EditRole });

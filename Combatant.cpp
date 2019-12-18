@@ -70,7 +70,7 @@ void Combatant::write(QJsonObject& json) const
 	json["isCurrentTurn"] = isCurrentTurn;
 }
 
-QVariant Combatant::valueFromField(int field)
+QVariant Combatant::getFieldValue(int field) const
 {
 	switch (field) {
 	case NAME: return name;
@@ -87,67 +87,24 @@ QVariant Combatant::valueFromField(int field)
 	return QVariant();
 }
 
+bool Combatant::setFieldValue(int field, const QVariant& value)
+{
+	switch (field) {
+	case NAME: name = value.toString(); break;
+	case INITIATIVE_ROLL: initRoll = value.toInt(); break;
+	case CUR_HP: curHP = value.toInt(); break;
+	case MAX_HP: maxHP = value.toInt(); break;
+	case IS_PLAYER: isPlayer = value.toBool(); break;
+	case PLAYER_NAME: player = value.toString(); break;
+	case INITIATIVE_BONUS: initBonus = value.toInt(); break;
+	case OTHER_INFO: otherInfo = value.toString(); break;
+	case CURRENT_TURN: isCurrentTurn = value.toBool(); break;
+	default: return false;
+	}
+	return true;
+}
+
 bool Combatant::isEmpty()
 {
 	return (*this == Combatant());
 }
-
-//void Combatant::setName(QString name)
-//{
-//	this->name = name;
-//}
-//
-//void Combatant::setIsPlayer(bool isPlayer)
-//{
-//	this->isPlayer = isPlayer;
-//}
-//
-//void Combatant::setPlayer(QString player)
-//{
-//	this->player = player;
-//}
-//
-//void Combatant::setInitBonus(int initBonus)
-//{
-//	this->initBonus = initBonus;
-//}
-//
-//void Combatant::setMaxHP(int maxHP)
-//{
-//	this->maxHP = maxHP;
-//}
-//
-//void Combatant::setOtherInfo(QString otherInfo)
-//{
-//	this->otherInfo = otherInfo;
-//}
-//
-//QString Combatant::getName()
-//{
-//	return name;
-//}
-//
-//bool Combatant::isPC()
-//{
-//	return isPlayer;
-//}
-//
-//QString Combatant::getPlayer()
-//{
-//	return player;
-//}
-//
-//int Combatant::getInitBonus()
-//{
-//	return initBonus;
-//}
-//
-//int Combatant::getMaxHP()
-//{
-//	return maxHP;
-//}
-//
-//QString Combatant::getOtherInfo()
-//{
-//	return otherInfo;
-//}

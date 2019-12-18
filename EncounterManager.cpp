@@ -57,7 +57,7 @@ void EncounterManager::on_actionRoll_Initiative_triggered()
 
 		// update stored roll
 		QModelIndex qmIdx = cmbtntModel->index(idx, Combatant::INITIATIVE_ROLL);
-		int initRoll = D20 + cmbtnt.initBonus;
+		int initRoll = D20 + cmbtnt.getFieldValue(Combatant::INITIATIVE_BONUS).toInt();
 		cmbtntModel->setData(qmIdx, initRoll);
 
 		// clear combatant's  current turn flag

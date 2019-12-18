@@ -14,12 +14,12 @@ AddCombatantDialog::~AddCombatantDialog()
 Combatant& AddCombatantDialog::getCombatant()
 {
 	if (cmbtnt.isEmpty()) {
-		cmbtnt.name = ui.nameEdit->text();
-		cmbtnt.initBonus = ui.initEdit->value();
-		cmbtnt.maxHP = ui.hpEdit->value();
-		cmbtnt.isPlayer = ui.yesButton->isChecked();
-		cmbtnt.player = ui.pcNameEdit->text();
-		cmbtnt.otherInfo = ui.otherInfoEdit->toHtml();
+		cmbtnt.setFieldValue(Combatant::NAME, ui.nameEdit->text());
+		cmbtnt.setFieldValue(Combatant::INITIATIVE_BONUS, ui.initEdit->value());
+		cmbtnt.setFieldValue(Combatant::MAX_HP, ui.hpEdit->value());
+		cmbtnt.setFieldValue(Combatant::IS_PLAYER, ui.yesButton->isChecked());
+		cmbtnt.setFieldValue(Combatant::PLAYER_NAME, ui.pcNameEdit->text());
+		cmbtnt.setFieldValue(Combatant::OTHER_INFO, ui.otherInfoEdit->toHtml());
 	}
 	return cmbtnt;
 }
