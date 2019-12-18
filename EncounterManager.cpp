@@ -102,3 +102,25 @@ void EncounterManager::on_actionToggle_Info_triggered()
 		ui.actionToggle_Info->setText("Hide Info");
 	}
 }
+
+bool EncounterManager::on_actionSave_triggered()
+{
+	const QModelIndexList indices = ui.combatantView->selectionModel()->selectedRows();
+
+	for (QModelIndex idx : indices) {
+		QModelIndex srcIdx = proxyModel->mapToSource(idx);
+		QString fileName = QFileDialog::getSaveFileName(this, tr("Save file"), "..", tr("JSON Files (*.json)"));
+		QFile saveFile(fileName);
+
+		if (!saveFile.open(QIODevice::WriteOnly)) {
+			qWarning("Could not open file.");
+			return false;
+		}
+
+		QJsonObject cmbtntObj;
+		cmbtntModel->getCombatantFromIndex(srcIdx).write(cmbtntObj);
+		QJsonDocument saveDoc(cmbtntObj);
+		saveFile.write(saveDoc.toJson());
+		return true;
+	}
+}

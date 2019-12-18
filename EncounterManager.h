@@ -36,4 +36,5 @@ private slots:
 	void on_actionRoll_Initiative_triggered();
 	void on_removeButton_clicked();
 	void on_actionToggle_Info_triggered();
+	bool on_actionSave_triggered();
 };
